@@ -45,6 +45,7 @@ app.use('/api/upload',    require('./routes/upload'));
 app.use('/api/chat',      require('./routes/chatbot'));
 app.use('/api/chats',     require('./routes/chats'));
 app.use('/api/knowledge', require('./routes/knowledge'));
+app.use('/api/meta',     require('./routes/meta'));
 
 // Health check
 app.get('/api/health', (req, res) => res.json({ status: 'ok', timestamp: new Date() }));

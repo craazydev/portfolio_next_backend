@@ -9,7 +9,9 @@ router.get('/', async (req, res) => {
     if (req.query.category) filter.category = req.query.category;
     if (req.query.featured)  filter.featured  = req.query.featured === 'true';
 
-    const projects = await Project.find(filter).sort({ featured: -1, order: 1, createdAt: -1 });
+    const limit = req.query.limit ? parseInt(req.query.limit) : 0;
+    const query = Project.find(filter).sort({ featured: -1, order: 1, createdAt: -1 });
+    const projects = await (limit > 0 ? query.limit(limit) : query);
     res.json({ success: true, count: projects.length, data: projects });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
