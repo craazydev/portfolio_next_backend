@@ -24,6 +24,16 @@ router.get('/', async (req, res) => {
   }
 });
 
+// GET /api/blog/admin/all
+router.get('/admin/all', auth, async (req, res) => {
+  try {
+    const posts = await Blog.find({}).sort({ createdAt: -1 });
+    res.json({ success: true, count: posts.length, data: posts });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
 // GET /api/blog/:slug  — increments views
 router.get('/:slug', async (req, res) => {
   try {

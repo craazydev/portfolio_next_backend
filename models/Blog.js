@@ -17,6 +17,7 @@ const blogSchema = new mongoose.Schema({
   // SEO
   metaTitle:   { type: String },
   metaDesc:    { type: String },
+  metaKeywords:[String],
   ogImage:     { type: String },
 }, { timestamps: true });
 

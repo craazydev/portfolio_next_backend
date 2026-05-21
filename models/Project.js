@@ -16,6 +16,11 @@ const projectSchema = new mongoose.Schema({
   featured:    { type: Boolean, default: false },
   order:       { type: Number, default: 0 },
   published:   { type: Boolean, default: true },
+  // SEO
+  metaTitle:    { type: String },
+  metaDesc:     { type: String },
+  metaKeywords: [String],
+  ogImage:      { type: String },
 }, { timestamps: true });
 
 // Auto-generate slug
@@ -24,11 +29,6 @@ projectSchema.pre('save', function (next) {
     this.slug = slugify(this.title, { lower: true, strict: true });
   }
   next();
-});
-
-// SEO virtual
-projectSchema.virtual('metaDescription').get(function () {
-  return this.description.substring(0, 160);
 });
 
 module.exports = mongoose.model('Project', projectSchema);

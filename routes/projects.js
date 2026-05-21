@@ -18,6 +18,16 @@ router.get('/', async (req, res) => {
   }
 });
 
+// GET /api/projects/admin/all
+router.get('/admin/all', auth, async (req, res) => {
+  try {
+    const projects = await Project.find({}).sort({ featured: -1, order: 1, createdAt: -1 });
+    res.json({ success: true, count: projects.length, data: projects });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
 // GET /api/projects/:slug
 router.get('/:slug', async (req, res) => {
   try {
